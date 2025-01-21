@@ -44,7 +44,7 @@ public class UserController {
 		return "register_success";
 	}
 	*/
-	@PostMapping(path="register_v3")
+	@PostMapping(path="register")
 	public String registerUser(
 			@ModelAttribute User user) {
 		User registedUser = userSerivce.registerUser(user);
