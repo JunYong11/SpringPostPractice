@@ -1,50 +1,26 @@
 package com.example.post.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import com.example.post.model.posts.Post;
 
-import com.example.post.model.Post;
-import com.example.post.repository.PostRepository;
+public interface PostService {
 
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor	// 의존성 주입(생성자 주입)
-@Service
-public class PostService {
-	// PostService 객체 생성 시점에 스프링 컨테이너가 자동으로 의존성을 주입(Dependency Injection) 해준다.
-	private final PostRepository postRepository;
-	
 	// 글 저장
-	public Post savePost(Post post) {
-		post.setCreateTime(LocalDateTime.now());
-		postRepository.savePost(post);
-		return post;
-	}
+	public Post savePost(Post post);
 	
 	// 글 전체 조회
-	public List<Post> getAllPosts(){
-		return postRepository.findAllPosts();
-	}
+	public List<Post> getAllPosts();
 	
 	// 아이디로 글 조회
-	public Post getPostById(Long postId) {
-		Post findPost = postRepository.findPostById(postId);
-		findPost.incrementViews();
-		return findPost;
-	}
+	public Post getPostById(Long postId);
 	
 	// 글 삭제
-	public void removePost(Long postId, String password) {
-		// 게시글 조회
-		Post findPost = postRepository.findPostById(postId);
-		if(findPost != null && findPost.getPassword().equals(password)) {
-			postRepository.removePost(postId);
-		}
-		
-		
-	}
+	public void removePost(Long postId);
 	
+	// 글 수정
+	public void updatePost(Long postId, Post updatePost);
 	
+	// 글 읽기
+	public Post readPost(Long postId);
 }

@@ -12,18 +12,18 @@
 <div th:replace="~{navi :: navi}"></div>
 
 <div class="container my-5">
-    <h2>게시글 작성</h2>
+    <h2>게시글 수정</h2>
     <!-- 게시글 작성 폼 -->
-    <form action="/posts" method="post">
+    <form th:action="@{/posts/edit/{postId}(postId=${post.id})}" method="post" th:object=${post}>
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+            <input type="text" class="form-control" th:field=*{title} th:value="*{title}" required>
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            <textarea class="form-control" th:field=*{content} rows="5" required>[[*{content}]]</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">글쓰기</button>
+        <button type="submit" class="btn btn-primary">수정하기</button>
     </form>
 </div>
 

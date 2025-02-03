@@ -6,34 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.post.model.User;
+import com.example.post.model.users.User;
 
 @Repository
-public class UserRepository {
-	private static Long sequence = 0L;	// ID 자동 증가를 위한 시퀀스
-	private final Map<Long,User> store = new HashMap<>();
-
-	// User 저장
-	public User save(User user) {
-		user.setId(++sequence);
-		store.put(user.getId(), user);
-		return user;
-	}
-	
-	public Optional<User> findById(Long id){
-		return Optional.ofNullable(store.get(id));
-	}
-	
-	
-	public List<User> findAll(){
-		return new ArrayList<>(store.values());
-	}
-
-	public User update(User user) {
-		// TODO Auto-generated method stub
-		store.put(user.getId(), user);
-		return null;
-	}
+public interface UserRepository extends JpaRepository<User, Long>{
+	// username 으로 회원 정보 조회 -> 쿼리 메소드
+	User findByUsername(String username);
 }
