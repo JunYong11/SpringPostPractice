@@ -25,4 +25,16 @@ public class UserCreateDto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 	private String email;
+	
+	public User toEntity() {
+		User user = new User();
+		user.setUsername(this.getUsername());
+		user.setPassword(this.getPassword());
+		user.setName(this.getName());
+		user.setGender(this.getGender());
+		user.setEmail(this.getEmail());
+		user.setBirthDate(this.getBirthDate());
+		
+		return user;
+	}
 }

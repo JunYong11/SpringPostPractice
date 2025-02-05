@@ -39,14 +39,7 @@ public class UserService {
 	}
 	
 	// 사용자 등록
-	public User registerUser(UserCreateDto userCreatDto) {
-		User user = new User();
-		user.setUsername(userCreatDto.getUsername());
-		user.setPassword(userCreatDto.getPassword());
-		user.setName(userCreatDto.getName());
-		user.setGender(userCreatDto.getGender());
-		user.setEmail(userCreatDto.getEmail());
-		user.setBirthDate(userCreatDto.getBirthDate());
+	public User registerUser(User user) {
 		return userRepository.save(user);
 	}
 	

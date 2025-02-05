@@ -65,7 +65,7 @@ public class UserController {
 		 bindingResult.reject("duplicate.username","이미 사용중인 아이디입니다.");
 		 return "/users/register";
 		}
-		User registedUser = userSerivce.registerUser(userCreatDto);
+		User registedUser = userSerivce.registerUser(userCreatDto.toEntity());
 		return "redirect:/";
 	}
 	
@@ -82,7 +82,8 @@ public class UserController {
 	public String login(
 			@Validated @ModelAttribute UserLoginDto userLoginDto,
 			BindingResult bindingResult,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			@RequestParam(name = "redirectURL") String redirectURL) {
 		// 로그인 검증 실패시
 		if(bindingResult.hasErrors()) {
 			log.info("유효성 검증 실패");
@@ -107,7 +108,8 @@ public class UserController {
 		log.info("===================== 로그인 성공 =====================");
 		User loginUser = (User) session.getAttribute("loginUser");
 		log.info("세션 정보: {}", loginUser);
-		return "redirect:/";
+		
+		return "redirect:" + redirectURL;
 	}
 	
 	// 세션 저장 확인
