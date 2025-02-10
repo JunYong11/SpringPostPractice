@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시글 작성</title>
+    <title>게시글 수정</title>
     <!-- Bootstrap CSS 추가 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -14,15 +14,30 @@
 <div class="container my-5">
     <h2>게시글 수정</h2>
     <!-- 게시글 작성 폼 -->
-    <form th:action="@{/posts/edit/{postId}(postId=${post.id})}" method="post" th:object=${post}>
+    <form th:action="@{/posts/edit/{postId}(postId=${postUpdateDto.id})}" method="post" th:object=${postUpdateDto}>
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" th:field=*{title} th:value="*{title}" required>
+            <input type="text" class="form-control" th:field=*{title} 
+            th:value="*{title}" required>
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" th:field=*{content} rows="5" required>[[*{content}]]</textarea>
+            <textarea class="form-control" th:field=*{content} rows="5" required>
+            	[[*{content}]]
+            </textarea>
         </div>
+        
+         <div class="mb-4">
+        	<label class="form-label">첨부파일</label>
+        	<ul>
+        		<li th:if="${post.fileAttachment}">
+        			<a th:href="@{/posts/{postId}/download/{fileAttachmentId}
+        			(postId=${post.id}, fileAttachmentId=${post.fileAttachment.id})}" 
+        			th:text="${post.fileAttachment.originalFilename}"></a>
+        		</li>
+        	</ul>
+        </div>
+        
         <button type="submit" class="btn btn-primary">수정하기</button>
     </form>
 </div>

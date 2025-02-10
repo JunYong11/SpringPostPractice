@@ -5,36 +5,42 @@ import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-// 회원 가입을 받기 위한 전용 클래스
+
 @Data
+// 회원 가입을 받기 위한 전용 클래스
 public class UserCreateDto {
-	
-	@NotBlank 
-	@NotNull
+	@NotBlank
 	@Size(min = 4, max = 20)
 	private String username;
 	private String password;
 	private String name;
-	private GenderType gender;	
+	private GenderType gender;
 	@Past
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 	private String email;
 	
 	public User toEntity() {
-		User user = new User();
-		user.setUsername(this.getUsername());
-		user.setPassword(this.getPassword());
-		user.setName(this.getName());
-		user.setGender(this.getGender());
-		user.setEmail(this.getEmail());
-		user.setBirthDate(this.getBirthDate());
+		return User.builder()
+				.username(this.username)
+				.password(this.password)
+				.name(this.name)
+				.gender(this.gender)
+				.birthDate(this.birthDate)
+				.email(this.email)
+				.build();
 		
-		return user;
+//		User user = new User();
+//		user.setUsername(this.getUsername());
+//		user.setPassword(this.getPassword());
+//		user.setName(this.getName());
+//		user.setBirthDate(this.getBirthDate());
+//		user.setGender(this.getGender());
+//		user.setEmail(this.getEmail());
+//		return user;
 	}
 }

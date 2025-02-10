@@ -1,4 +1,4 @@
-package interceptor;
+package com.example.post.interceptor;
 
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

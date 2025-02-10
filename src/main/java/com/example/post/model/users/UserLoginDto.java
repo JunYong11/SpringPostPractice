@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class UserLoginDto {
 	@NotBlank
-	@Size(min = 4, max = 20, message="아이디는 4자리 이상 20자리 이하로 입력해 주세요")
+	@Size(min = 4, max = 20, message = "아이디는 4자리 이상 20자리 이하로 입력해 주세요")
 	private String username;
 	@NotBlank
 	@Size(min = 4, max = 20)

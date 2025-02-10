@@ -11,8 +11,19 @@ import org.springframework.stereotype.Repository;
 
 import com.example.post.model.users.User;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long>{
-	// username 으로 회원 정보 조회 -> 쿼리 메소드
+public interface UserRepository extends JpaRepository<User, Long> {
+	// username 으로 회원정보 조회 -> 쿼리 메소드
 	User findByUsername(String username);
+	
 }
+
+
+
+
+
+
+
+
+
+
+

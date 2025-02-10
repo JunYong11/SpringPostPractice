@@ -1,6 +1,5 @@
 package com.example.post.config;
 
-import org.springframework.boot.web.servlet.AbstractFilterRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,19 +8,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.post.filter.LogFilter;
 import com.example.post.filter.LoginCheckFilter;
+import com.example.post.interceptor.LogInterceptor;
+import com.example.post.interceptor.LoginCheckIntecptor;
 
-import interceptor.LogInterceptor;
-import interceptor.LoginCheckInterceptor;
 import jakarta.servlet.Filter;
-import jakarta.servlet.FilterRegistration;
 
 // 스프링 설정과 관련된 클래스
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
 	// @Configuration 클래스의 @Bean 메소드의 리턴 값이 스프링 빈으로 등록 된다.
-	//@Bean	// Bean 만 주석 처리해도 객체 생성 안됨
-	public AbstractFilterRegistrationBean logFilter() {
+//	@Bean
+	public FilterRegistrationBean logFilter() {
 		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
 		// 사용할 필터를 지정한다.
 		filterRegistrationBean.setFilter(new LogFilter());
@@ -29,12 +27,11 @@ public class WebConfig implements WebMvcConfigurer {
 		filterRegistrationBean.setOrder(1);
 		// 필터를 적용할 URL 패턴을 지정한다.
 		filterRegistrationBean.addUrlPatterns("/*");
-		
 		return filterRegistrationBean;
 	}
 	
-	//@Bean
-	public AbstractFilterRegistrationBean loginCheckFilter() {
+//	@Bean
+	public FilterRegistrationBean loginCheckFilter() {
 		FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
 		// 사용할 필터를 지정한다.
 		filterRegistrationBean.setFilter(new LoginCheckFilter());
@@ -42,24 +39,31 @@ public class WebConfig implements WebMvcConfigurer {
 		filterRegistrationBean.setOrder(2);
 		// 필터를 적용할 URL 패턴을 지정한다.
 		filterRegistrationBean.addUrlPatterns("/*");
-		
 		return filterRegistrationBean;
 	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		//registry.addInterceptor(new LogInterceptor())
-		// 인터셉터의 실행 순서
-		//.order(1)
-		// 인터셉터를 적용할 URL 패턴을 지정
-		//.addPathPatterns("/**");
-		
-		registry.addInterceptor(new LoginCheckInterceptor())
+		/*
+		registry.addInterceptor(new LogInterceptor())
 		// 인터셉터의 실행 순서
 		.order(1)
 		// 인터셉터를 적용할 URL 패턴을 지정
+		.addPathPatterns("/**");
+		*/
+		registry.addInterceptor(new LoginCheckIntecptor())
+		.order(2)
 		.addPathPatterns("/**")
-		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout");
+		// 인터셉터에서 제외할 URL
+		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout","/error");
 	}
-	
 }
+
+
+
+
+
+
+
+
+

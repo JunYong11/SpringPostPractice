@@ -15,7 +15,7 @@
     <h2>회원가입</h2>
 
     <!-- 회원가입 폼 -->
-    <form action="/users/register" method="post" th:object="${RegisterUserDto}">
+    <form action="/users/register" method="post" th:object="${userCreateDto}">
         <!-- 유효성 검사 메시지를 표시할 영역 -->
    		<th:block th:if="${#fields.hasGlobalErrors()}">        
       		<div id = "validationMessages" th:each="err : ${#fields.globalErrors()}" 
