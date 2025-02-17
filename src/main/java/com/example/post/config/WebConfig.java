@@ -55,7 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
 		.order(2)
 		.addPathPatterns("/**")
 		// 인터셉터에서 제외할 URL
-		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout","/error");
+		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout","/api/**");
 	}
 }
 
